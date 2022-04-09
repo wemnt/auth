@@ -11,6 +11,7 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="views")
 
+
 class Test1(BaseModel):
     a: str
     b: int
@@ -18,11 +19,9 @@ class Test1(BaseModel):
 
 @as_form
 class Test(BaseModel):
-    param: str
-    test: List[Test1]
-    test1: Test1
-    b: int = 1
-    a: str = '2342'
+    username: str
+    password: str
+
 
 @app.get("/")
 async def root():
@@ -38,4 +37,4 @@ async def penis(request: Request):
 
 @app.post("/penis", response_model=Test)
 async def read_login(request: Request, form: Test = Depends(Test.as_form)):
-    return await request.body()
+    return form
