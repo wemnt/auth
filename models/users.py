@@ -3,36 +3,37 @@ from pydantic import BaseModel, EmailStr, constr, validator
 from datetime import datetime
 
 class Users(BaseModel):
-    id: Optional[int] = None
-    email: EmailStr
-    username: constr(min_length=4)
-    password: Optional[str]
-    created_at: datetime
-    updated_at: datetime
+    ID: Optional[int] = None
+    Email: EmailStr
+    Username: constr(min_length=4)
+    Password: Optional[str]
+    Created_at: datetime
+    Updated_at: datetime
 
 
 class UsersCreate(BaseModel):
-    email: EmailStr
-    username: constr(min_length=4)
-    password: constr(min_length=6)
-    password2: constr(min_length=6)
+    Email: EmailStr
+    Username: constr(min_length=4)
+    Password: constr(min_length=6)
+    Password2: constr(min_length=6)
 
-    @validator("password2")
+    @validator("Password2")
     def password_match(cls, v, values, **kwargs):
-        if 'password' in values and v != values["password"]:
+        if 'Password' in values and v != values["Password"]:
             raise ValueError("Password don`t match")
         return v
 
 
 class UserUpdate(BaseModel):
-    name: str
-    email: EmailStr
-    password: Optional[constr(min_length=8)] = None
+    Username: str
+    Email: EmailStr
+    Password: Optional[constr(min_length=8)] = None
 
 
 class UserResponse(BaseModel):
-    id: int
-    username: str
-    email: EmailStr
-    created_at: datetime
-    updated_at: datetime
+    ID: int
+    Username: str
+    Email: EmailStr
+    Password: str
+    Created_at: datetime
+    Updated_at: datetime
